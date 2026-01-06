@@ -76,9 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisCount: 3,
               mainAxisSpacing: 15,
               crossAxisSpacing: 15,
-              children: List.generate(5, (index) {
-                return BoxCard();
-              }),
+              children: [
+                for (int i = 0; i < 5; i++) BoxCard(number: i.toString()),
+              ],
             ),
           ),
         ],
@@ -93,7 +93,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class BoxCard extends StatefulWidget {
-  const BoxCard({super.key});
+  const BoxCard({super.key, required this.number});
+
+  final String number;
 
   @override
   State<BoxCard> createState() => _BoxCardState();
@@ -108,7 +110,9 @@ class _BoxCardState extends State<BoxCard> {
       onPressed: () {
         print("Button is pressed.");
       },
-      child: Icon(Icons.person, size: 50),
+      child: Column(
+        children: [Icon(Icons.person, size: 50), Text(widget.number)],
+      ),
     );
   }
 }
