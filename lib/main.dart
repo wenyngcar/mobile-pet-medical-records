@@ -13,24 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.blueAccent),
-      ),
+      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.blueAccent)),
       home: const MyHomePage(title: 'Pet Records'),
     );
   }
@@ -90,7 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
             flex: 2,
             child: GridView.count(
               padding: EdgeInsets.all(20),
-              crossAxisCount: 4,
+              crossAxisCount: 3,
+              mainAxisSpacing: 15,
+              crossAxisSpacing: 15,
               children: List.generate(5, (index) {
                 return BoxCard();
               }),
@@ -107,15 +92,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class BoxCard extends StatelessWidget {
+class BoxCard extends StatefulWidget {
   const BoxCard({super.key});
 
   @override
+  State<BoxCard> createState() => _BoxCardState();
+}
+
+class _BoxCardState extends State<BoxCard> {
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      width: 100,
-      child: Card(color: Colors.blueAccent),
+    return FloatingActionButton(
+      backgroundColor: Colors.green,
+      foregroundColor: Colors.white,
+      onPressed: () {
+        print("Button is pressed.");
+      },
+      child: Icon(Icons.person, size: 50),
     );
   }
 }
