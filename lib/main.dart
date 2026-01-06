@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.blueAccent)),
+      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.blue)),
       home: const MyHomePage(title: 'Pet Records'),
     );
   }
@@ -41,10 +41,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.blue,
         title: Text(
           widget.title,
-          style: TextStyle(fontWeight: FontWeight.w500),
+          style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
         ),
       ),
       body: Column(
@@ -104,14 +104,41 @@ class BoxCard extends StatefulWidget {
 class _BoxCardState extends State<BoxCard> {
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      backgroundColor: Colors.green,
-      foregroundColor: Colors.white,
-      onPressed: () {
+    return GestureDetector(
+      onTap: () {
         print("Button is pressed.");
+        Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (context) => PetProfile(temporaryIndex: widget.number),
+          ),
+        );
       },
-      child: Column(
-        children: [Icon(Icons.person, size: 50), Text(widget.number)],
+      child: Card(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Icon(Icons.person, size: 50), Text(widget.number)],
+        ),
+      ),
+    );
+  }
+}
+
+class PetProfile extends StatelessWidget {
+  const PetProfile({super.key, required this.temporaryIndex});
+
+  final String temporaryIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.blue,
+        title: Text(
+          "Profile $temporaryIndex",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     );
   }
